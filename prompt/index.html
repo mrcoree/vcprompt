@@ -421,18 +421,36 @@
       <h3>강의 자료 다운로드</h3>
       <p>2603_AI활용_수정.pdf · 7.2MB</p>
     </div>
-    <a class="download-btn" href="2603_AI활용_수정.pdf" download>
+    <button class="download-btn" onclick="openDownloadModal()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
         <polyline points="7 10 12 15 17 10"/>
         <line x1="12" y1="15" x2="12" y2="3"/>
       </svg>
       PDF 다운로드
-    </a>
+    </button>
   </div>
 </div>
 
 <footer>투자 분석 강의 자료용 프롬프트 모음집</footer>
+
+<!-- Download Password Modal -->
+<div class="modal-overlay" id="downloadPwModal">
+  <div class="modal">
+    <h3>강의 자료 다운로드</h3>
+    <p class="modal-sub">다운로드 비밀번호를 입력하세요.</p>
+    <div class="modal-error" id="downloadPwError">비밀번호가 올바르지 않습니다.</div>
+    <div class="modal-field">
+      <label>비밀번호</label>
+      <input type="password" id="downloadPwInput" placeholder="비밀번호 입력"
+        onkeydown="if(event.key==='Enter')checkDownloadPw()" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeDownloadModal()">취소</button>
+      <button class="btn-primary" onclick="checkDownloadPw()">확인</button>
+    </div>
+  </div>
+</div>
 
 <!-- Login Modal -->
 <div class="modal-overlay" id="loginModal">
@@ -490,6 +508,34 @@
 </div>
 
 <script>
+  // ── Download password (SHA-256 hash only) ──
+  const HASH_DL = 'cdad86ca9450d1c143675a8436131cabaf55905c114fa4524bf6a9ec5662cad7';
+
+  function openDownloadModal() {
+    document.getElementById('downloadPwInput').value = '';
+    document.getElementById('downloadPwError').classList.remove('visible');
+    document.getElementById('downloadPwModal').classList.add('visible');
+    setTimeout(() => document.getElementById('downloadPwInput').focus(), 100);
+  }
+  function closeDownloadModal() {
+    document.getElementById('downloadPwModal').classList.remove('visible');
+  }
+  async function checkDownloadPw() {
+    const pw = document.getElementById('downloadPwInput').value;
+    const hash = await sha256(pw);
+    if (hash === HASH_DL) {
+      closeDownloadModal();
+      const a = document.createElement('a');
+      a.href = '2603_AI활용_수정.pdf';
+      a.download = '2603_AI활용_수정.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } else {
+      document.getElementById('downloadPwError').classList.add('visible');
+    }
+  }
+
   // ── Security: credentials stored as SHA-256 hashes only ──
   const HASH_ID = '44024e0fb3fb92b3ad87c77df2ba5ebade2f4391a41df4176d2824668cf9356d';
   const HASH_PW = '773432ae8381ef77dea3a27883500f52f99b9e0616d2238007bfbce677ce2de2';
