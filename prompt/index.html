@@ -335,6 +335,45 @@
     }
     .btn-cancel:hover { background: #273449; }
 
+    /* ── Download banner ── */
+    .download-banner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 28px;
+    }
+    .download-card {
+      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.06));
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 16px;
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .download-icon {
+      width: 48px; height: 48px;
+      background: rgba(99,102,241,0.15);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .download-icon svg { width: 24px; height: 24px; color: #818cf8; }
+    .download-info { flex: 1; min-width: 0; }
+    .download-info h3 { font-size: 0.95rem; font-weight: 600; color: #e2e8f0; margin-bottom: 4px; }
+    .download-info p { font-size: 0.8rem; color: #64748b; }
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white; border: none; border-radius: 10px;
+      padding: 10px 22px; font-size: 0.88rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: opacity 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .download-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .download-btn svg { width: 16px; height: 16px; }
+
     /* ── Footer ── */
     footer { text-align: center; padding: 24px; color: #334155; font-size: 0.8rem; border-top: 1px solid #1e293b; }
   </style>
@@ -367,6 +406,31 @@
 </header>
 
 <main id="promptList"></main>
+
+<!-- Download banner -->
+<div class="download-banner">
+  <div class="download-card">
+    <div class="download-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <path d="M12 18v-6"/><polyline points="9 15 12 18 15 15"/>
+      </svg>
+    </div>
+    <div class="download-info">
+      <h3>강의 자료 다운로드</h3>
+      <p>2603_AI활용_수정.pdf · 7.2MB</p>
+    </div>
+    <a class="download-btn" href="2603_AI활용_수정.pdf" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      PDF 다운로드
+    </a>
+  </div>
+</div>
 
 <footer>투자 분석 강의 자료용 프롬프트 모음집</footer>
 
